@@ -12,18 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Black,
-    secondary = Blue,
-    background = Color.White,
-    onBackground = Color.White
-)
 
 private val LightColorScheme = lightColorScheme(
     primary = Black,
     secondary = Blue,
-    background = Color.White,
-    onBackground = Color.White
+    background = Black_BG
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
@@ -42,7 +35,6 @@ fun DonezoTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-
     MaterialTheme(
         colorScheme = LightColorScheme,
         typography = Typography,

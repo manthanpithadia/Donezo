@@ -13,6 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 // Color pallet - Dark Colors
 
 val Black = Color(0xFF232429)
+val Black_BG = Color(0xFF0C0C0C)
 val Yellow = Color(0xFFF5A920)
 val Red = Color(0xFFF55C33)
 val Purple = Color(0xFFA262EA)
@@ -27,3 +28,14 @@ val Light_Red = Color(0xFFFFAC96)
 val Light_Purple = Color(0xFFF3EAFF)
 val Light_Blue = Color(0xFF9AE8FF)
 
+// Gradient color
+val Black_g1 = Color(0xFF232429)
+val Black_g2 = Color(0xFF232429)
+val Black_g3 = Color(0xFF35363E)
+val Black_g4 = Color(0xFF7A7E8F)
+
+val Stroke_g1 = Color(0xFFF5A920)
+val Stroke_g2 = Color(0xFFF55C33)
+val Stroke_g3 = Color(0xFFA262EA)
+
+val chip_unSelected = Color(0xFF3A3A3A)

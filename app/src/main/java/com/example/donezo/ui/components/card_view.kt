@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.donezo.ui.theme.Black
 import com.example.donezo.ui.theme.Grey
 import com.example.donezo.ui.theme.Light_Blue
 import com.example.donezo.ui.theme.Light_Grey
@@ -42,7 +43,7 @@ fun cardView() {
         onClick = { /*TODO*/ },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp), // Add padding around the Card
+            .padding(vertical = 8.dp), // Add padding around the Card
         shape = Shapes().medium,
         border = BorderStroke(1.dp, Light_Grey)// Rounded corners // Optional: Adds shadow/elevation
     ) {
@@ -57,17 +58,16 @@ fun cardView() {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(shape = Shapes().medium, color = Light_Purple) {
+                Surface(shape = Shapes().extraLarge, color = Light_Grey) {
                     Icon(
-                        modifier = Modifier.padding(8.dp), imageVector = Icons.Default.Person,
-                        tint = Purple,
+                        modifier = Modifier.padding(6.dp), imageVector = Icons.Default.Person,
+                        tint = Black,
                         contentDescription = null
                     )
                 }
                 Spacer(modifier = Modifier.padding(10.dp))
                 Text(text = "Work", style = Typography.titleMedium)
             }
-            Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = null)
         }
     }
 }

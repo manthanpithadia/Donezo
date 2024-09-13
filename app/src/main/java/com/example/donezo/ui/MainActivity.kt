@@ -105,18 +105,19 @@ fun Title() {
                 contentAlignment = Alignment.Center
             ) {
                 Button(
-                    onClick = { /*TODO*/ }, shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Black),
+                    onClick = { /*TODO*/ }, shape = RoundedCornerShape(32.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp)
+                        .padding(horizontal = 16.dp)
                 ) {
                     Text(
                         text = "CREATE TASK",
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = InterFontFamily,
                         fontSize = 18.sp,
-                        color = Color.White
+                        color = Color.Black
                     )
                 }
             }
@@ -128,11 +129,10 @@ fun Title() {
                 .fillMaxSize() // Make sure the content fills the entire screen
                 .background(Black_BG) // Set background color to black
                 .padding(innerPadding)
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
         ) {
-
             ChipGroupCompose()
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.padding(16.dp))
             Text(
                 text = "Task List",
                 fontFamily = InterFontFamily,
@@ -140,7 +140,7 @@ fun Title() {
                 fontSize = 24.sp
             )
             LazyColumn {
-                items(1) {
+                items(10) {
                     cardView()
                 }
             }

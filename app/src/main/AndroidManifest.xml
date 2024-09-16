@@ -13,19 +13,19 @@
         android:theme="@style/Theme.Donezo"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Donezo">
-
-        </activity>
-        <activity android:name=".ui.EditTaskActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.EditTaskActivity"
+            android:exported="true">
+
         </activity>
     </application>
 

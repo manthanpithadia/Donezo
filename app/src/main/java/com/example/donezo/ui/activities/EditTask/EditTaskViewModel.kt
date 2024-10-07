@@ -1,5 +1,6 @@
 package com.example.donezo.ui.activities.EditTask
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,19 +16,20 @@ class EditTaskViewModel(private val repository: NoteRepository) : ViewModel() {
     private var _saved = MutableLiveData<Boolean>()
     val saved: LiveData<Boolean> = _saved
 
-    fun isSavedClicked(note: Note){
+    fun isSavedClicked(note: Note) {
         // I am saving my data into my Room DB here, therefore I am dispatching my coroutine on IO thread
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.insert(note)    // Getting task in IO thread
-
+            //repository.insert(note)    // Getting task in IO thread
+            val result = repository.getNoteList()
+            Log.i("DATA",result.toString())
             // using withContext to perform n number of operations on different thread while I am in IO thread,
             // this will help me perform the operation without creating a new function for this Dispatcher
             // and it will not block my current IO thread.
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 // Updating UI in Main Thread
                 _saved.value = true
             }
         }
-
     }
+
 }

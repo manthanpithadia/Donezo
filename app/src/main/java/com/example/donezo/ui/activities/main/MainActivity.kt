@@ -60,7 +60,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        initViewModelObserver()
+        viewModel.navigateToEditTaskActivity.observe(this) { navigate ->
+            if (navigate) {
+                val context: Context = this
+                val intent = Intent(context, EditTaskActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
         setContent {
             DonezoTheme {
                 setStatusBarColor(color = Color.Black, darkIcons = false)
@@ -71,13 +77,7 @@ class MainActivity : ComponentActivity() {
 
     private fun initViewModelObserver() {
         // Initializing View Model
-        viewModel.navigateToEditTaskActivity.observe(this) { navigate ->
-            if (navigate) {
-                val context: Context = this
-                val intent = Intent(context, EditTaskActivity::class.java)
-                context.startActivity(intent)
-            }
-        }
+
     }
 }
 

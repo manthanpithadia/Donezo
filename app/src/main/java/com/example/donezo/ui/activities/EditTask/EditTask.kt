@@ -2,6 +2,7 @@ package com.example.donezo.ui.activities.EditTask
 
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -27,34 +28,66 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import com.example.donezo.data.NoteDao
+import com.example.donezo.data.database.DatabaseInstance
+import com.example.donezo.data.model.Note
+import com.example.donezo.repository.NoteRepository
 import com.example.donezo.setStatusBarColor
 import com.example.donezo.ui.theme.DonezoTheme
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Date
 
 class EditTaskActivity : ComponentActivity() {
+
+    private lateinit var viewModel: EditTaskViewModel
+    private lateinit var dao: NoteDao
+    private lateinit var repo: NoteRepository
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DonezoTheme {
                 setStatusBarColor(color = Color.Black, darkIcons = false)
-                CreateTaskScreen()
+                // Get Roob DB instance
+                val database = DatabaseInstance.getDatabase(this)
+                dao = database.noteDao()
+                repo = NoteRepository(dao = dao)
+
+                // Initialize ViewModel
+                val viewModelFactory = EditTaskViewModelFactory(repo)
+                viewModel = ViewModelProvider(this,viewModelFactory).get(EditTaskViewModel::class.java)
+
+                viewModel.saved.observe(this){
+                    if(it){
+                        // data saved
+                        //TODO: go back to the previous screen
+                       // Toast.makeText(this, viewModel.getNoteList(), Toast.LENGTH_LONG).show()
+                    }
+                }
+                CreateTaskScreen(viewModel)
             }
         }
     }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTaskScreen() {
+fun CreateTaskScreen(viewModel: EditTaskViewModel) {
     var selectedColor by remember { mutableStateOf(Color(0xFFFFD1A8)) }
     var title by remember { mutableStateOf(TextFieldValue("")) }
     var note by remember { mutableStateOf(TextFieldValue("")) }
+    var noteText by remember { mutableStateOf(TextFieldValue("")) }
+    var isFavorite by remember { mutableStateOf(false) }
 
     // Date Picker Logic
     // State to hold the selected date
@@ -127,6 +160,7 @@ fun CreateTaskScreen() {
                     tint = Color.White,
                     modifier = Modifier.size(24.dp).clickable {
                         // on Star Click
+                        isFavorite = true
                     }
                 )
                 Spacer(modifier = Modifier.width(16.dp))
@@ -136,6 +170,15 @@ fun CreateTaskScreen() {
                     tint = Color.White,
                     modifier = Modifier.size(24.dp).clickable {
                         // on Save Click
+                        //TODO: viewModel.isSavedClicked(Note)
+                        val note = Note(
+                            color = selectedColor.toArgb(), // Color of the note
+                            date = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString(), // Convert LocalDate to Date
+                            title = title.text,  // Access the title text
+                            content = noteText.text, // Access the noteText content
+                            isFavorite = isFavorite
+                        )
+                        viewModel.isSavedClicked(note)
                     }
                 )
             }
@@ -228,8 +271,6 @@ fun CreateTaskScreen() {
 
         Divider()
 
-        var noteText by remember { mutableStateOf(TextFieldValue()) }
-
         TextField(
             value = noteText,
             onValueChange = { noteText = it },
@@ -255,10 +296,9 @@ fun CreateTaskScreen() {
 
 
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun CreateTaskScreenPreview() {
-    CreateTaskScreen()
-
-}
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Preview(showBackground = true)
+//@Composable
+//fun CreateTaskScreenPreview() {
+//    CreateTaskScreen()
+//}

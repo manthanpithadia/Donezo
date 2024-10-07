@@ -1,4 +1,4 @@
-package com.example.donezo.ui.activities
+package com.example.donezo.ui.activities.EditTask
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

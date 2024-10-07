@@ -1,4 +1,4 @@
-package com.example.donezo.ui.activities
+package com.example.donezo.ui.activities.EditTask
 
 import android.os.Build
 import android.os.Bundle
@@ -29,15 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.donezo.setStatusBarColor
-import com.example.donezo.ui.theme.Black
-import com.example.donezo.ui.theme.Black_BG
 import com.example.donezo.ui.theme.DonezoTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
 
 class EditTaskActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)

@@ -19,9 +19,12 @@ class EditTaskViewModel(private val repository: NoteRepository) : ViewModel() {
     fun isSavedClicked(note: Note) {
         // I am saving my data into my Room DB here, therefore I am dispatching my coroutine on IO thread
         viewModelScope.launch(Dispatchers.IO) {
-            //repository.insert(note)    // Getting task in IO thread
-            val result = repository.getNoteList()
-            Log.i("DATA",result.toString())
+            repository.insert(note)    // Getting task in IO thread
+
+            //TODO: to check whether data is inserted or not please uncomment below two lines
+            //val result = repository.getNoteList()
+            //Log.i("DATA",result.toString())
+
             // using withContext to perform n number of operations on different thread while I am in IO thread,
             // this will help me perform the operation without creating a new function for this Dispatcher
             // and it will not block my current IO thread.

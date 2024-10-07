@@ -1,10 +1,15 @@
 package com.example.donezo.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.Date
+
+@Entity(tableName = "notes")
 data class Note(
-    val title: String,
-    val desc: String,
-    val date: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val color: Int,
-    val isFavourite: Boolean,
-    val isCompleted: Boolean
+    val date: Date,
+    val title: String,
+    val content: String,
+    val isFavorite: Boolean,
 )

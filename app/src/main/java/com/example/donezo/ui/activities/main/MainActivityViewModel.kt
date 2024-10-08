@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.donezo.repository.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(repo: NoteRepository) : ViewModel() {
 
     // Live Data to notify when to navigate
     private val _navigateToEditTaskActivity = MutableLiveData<Boolean>()

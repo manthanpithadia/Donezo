@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.donezo.data.NoteDao
 import com.example.donezo.data.database.DatabaseInstance
 import com.example.donezo.data.model.Note
+import com.example.donezo.getNoteRepository
 import com.example.donezo.repository.NoteRepository
 import com.example.donezo.setStatusBarColor
 import com.example.donezo.ui.theme.DonezoTheme
@@ -47,8 +48,6 @@ import java.util.Date
 class EditTaskActivity : ComponentActivity() {
 
     private lateinit var viewModel: EditTaskViewModel
-    private lateinit var dao: NoteDao
-    private lateinit var repo: NoteRepository
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,13 +56,11 @@ class EditTaskActivity : ComponentActivity() {
             DonezoTheme {
                 setStatusBarColor(color = Color.Black, darkIcons = false)
                 // Get Roob DB instance
-                val database = DatabaseInstance.getDatabase(this)
-                dao = database.noteDao()
-                repo = NoteRepository(dao = dao)
+                val repo = getNoteRepository()
 
                 // Initialize ViewModel
                 val viewModelFactory = EditTaskViewModelFactory(repo)
-                viewModel = ViewModelProvider(this,viewModelFactory).get(EditTaskViewModel::class.java)
+                viewModel = ViewModelProvider(this,viewModelFactory)[EditTaskViewModel::class.java]
 
                 viewModel.saved.observe(this){
                     if(it){

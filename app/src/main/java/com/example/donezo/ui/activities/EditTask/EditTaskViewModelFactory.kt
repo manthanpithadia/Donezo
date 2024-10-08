@@ -10,6 +10,6 @@ class EditTaskViewModelFactory(private val repository: NoteRepository) : ViewMod
         if(modelClass.isAssignableFrom(EditTaskViewModel::class.java)){
             return EditTaskViewModel(repository) as T
         }
-        throw IllegalArgumentException("Unknown View Model Class")
+        throw IllegalArgumentException("Unknown Edit Task View Model Class")
     }
 }

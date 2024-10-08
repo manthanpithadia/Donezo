@@ -44,6 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import com.example.donezo.R
+import com.example.donezo.data.NoteDao
+import com.example.donezo.getNoteRepository
+import com.example.donezo.repository.NoteRepository
 import com.example.donezo.setStatusBarColor
 import com.example.donezo.ui.activities.EditTask.EditTaskActivity
 import com.example.donezo.ui.components.ChipGroupCompose
@@ -56,10 +59,14 @@ import com.example.donezo.ui.theme.Typography
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        val repo = getNoteRepository()
+        val viewModelFactory = MainActivityViewModelFactory(repo)
+        viewModel = ViewModelProvider(this,viewModelFactory)[MainActivityViewModel::class.java]
+
         viewModel.navigateToEditTaskActivity.observe(this) { navigate ->
             if (navigate) {
                 val context: Context = this
@@ -185,8 +192,6 @@ fun TopBar() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    DonezoTheme {
-        Title(viewModel = MainActivityViewModel())
-    }
+
 }
 
